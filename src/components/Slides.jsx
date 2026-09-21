@@ -31,8 +31,7 @@ import {
   useCases,
   workshopTasks,
 } from '../data/starbooksContent'
-
-const LOGO = '/starbooks-logo.png'
+import { LOGO_SRC } from '../constants/brand'
 
 const benefitIcons = [WifiOff, Lightbulb, ShieldCheck, Search, Users, FlaskConical]
 
@@ -44,7 +43,7 @@ export function SlideIntro({ active }) {
       <div className="intro-center">
         <Reveal active={active}>
           <img
-            src={LOGO}
+            src={LOGO_SRC}
             alt="STARBOOKS Logo"
             className="intro-logo"
             width={480}
@@ -439,7 +438,7 @@ export function SlideEnd({ active }) {
       <div className="closing-center">
         <Reveal active={active}>
           <img
-            src={LOGO}
+            src={LOGO_SRC}
             alt="STARBOOKS Logo"
             className="intro-logo intro-logo-sm"
             width={360}

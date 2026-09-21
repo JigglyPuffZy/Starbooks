@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { ChevronLeft, ChevronRight, Download, Maximize2, Minimize2 } from 'lucide-react'
+import { LOGO_SRC } from '../constants/brand'
 import { SLIDE_LIST } from './Slides'
 
 export default function Presentation() {
@@ -76,7 +77,7 @@ export default function Presentation() {
       <header className="deck-header">
         <div className="brand">
           <img
-            src="/starbooks-logo.png"
+            src={LOGO_SRC}
             alt="STARBOOKS"
             className="brand-logo"
             width={200}
