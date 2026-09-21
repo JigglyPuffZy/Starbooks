@@ -1,0 +1,73 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* DOST / STARBOOKS brand colors */
+  --dost-blue: #00aeef;
+  --dost-blue-dark: #0090c8;
+  --dost-blue-light: #e6f7fd;
+  --dost-yellow: #ffc220;
+  --dost-yellow-light: #fff8e1;
+  --dost-black: #1a1a1a;
+  --dost-gray: #4a5568;
+  --dost-gray-light: #718096;
+  --white: #ffffff;
+  --bg: #f5fbfe;
+  --border: #cce9f5;
+  --shadow-sm: 0 2px 8px rgba(0, 174, 239, 0.06);
+  --shadow-md: 0 6px 20px rgba(0, 174, 239, 0.1);
+  --radius: 12px;
+  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-body: 'Figtree', system-ui, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--dost-black);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  height: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+a {
+  color: var(--dost-blue-dark);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+::selection {
+  background: var(--dost-blue-light);
+  color: var(--dost-blue-dark);
+}
+
+strong {
+  color: var(--dost-black);
+  font-weight: 700;
+}
