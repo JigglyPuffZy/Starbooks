@@ -6,7 +6,7 @@ STARBOOKS Teacher Orientation — a full-screen web presentation for DOST-STII.
 
 - Slide deck with keyboard navigation (arrows, space)
 - Fullscreen present mode (`F`)
-- Download as PowerPoint (`.pptx`)
+- Download official STARBOOKS PDF
 - Printable teacher manual at `/starbooks-teacher-manual.html`
 
 ## Local development

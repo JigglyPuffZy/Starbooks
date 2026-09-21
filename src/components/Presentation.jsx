@@ -56,26 +56,23 @@ export default function Presentation() {
     return () => window.removeEventListener('keydown', onKey)
   }, [next, prev, togglePresent])
 
-  const handleDownloadPdf = async () => {
+  const handleDownloadPdf = () => {
     if (downloading) return
     setDownloading(true)
     try {
-      const res = await fetch(PDF_DOWNLOAD_SRC)
-      if (!res.ok) throw new Error('PDF not found')
-      const blob = await res.blob()
-      const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
-      link.href = url
+      link.href = PDF_DOWNLOAD_SRC
       link.download = PDF_DOWNLOAD_NAME
+      link.target = '_blank'
+      link.rel = 'noopener noreferrer'
       document.body.appendChild(link)
       link.click()
       link.remove()
-      URL.revokeObjectURL(url)
     } catch (err) {
       console.error(err)
       window.alert('Could not download the STARBOOKS PDF. Please try again.')
     } finally {
-      setDownloading(false)
+      window.setTimeout(() => setDownloading(false), 600)
     }
   }
 
