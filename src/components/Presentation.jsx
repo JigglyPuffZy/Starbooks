@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
 import { ChevronLeft, ChevronRight, Download, Maximize2, Minimize2 } from 'lucide-react'
-import { LOGO_SRC } from '../constants/brand'
+import { LOGO_SRC, PDF_DOWNLOAD_NAME, PDF_DOWNLOAD_SRC } from '../constants/brand'
 import { SLIDE_LIST } from './Slides'
 
 export default function Presentation() {
   const [current, setCurrent] = useState(0)
   const [presenting, setPresenting] = useState(false)
-  const [exporting, setExporting] = useState(false)
+  const [downloading, setDownloading] = useState(false)
   const total = SLIDE_LIST.length
 
   const goTo = useCallback(
@@ -56,17 +56,26 @@ export default function Presentation() {
     return () => window.removeEventListener('keydown', onKey)
   }, [next, prev, togglePresent])
 
-  const handleDownloadPpt = async () => {
-    if (exporting) return
-    setExporting(true)
+  const handleDownloadPdf = async () => {
+    if (downloading) return
+    setDownloading(true)
     try {
-      const { exportStarbooksPptx } = await import('../utils/exportPptx')
-      await exportStarbooksPptx()
+      const res = await fetch(PDF_DOWNLOAD_SRC)
+      if (!res.ok) throw new Error('PDF not found')
+      const blob = await res.blob()
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = PDF_DOWNLOAD_NAME
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+      URL.revokeObjectURL(url)
     } catch (err) {
       console.error(err)
-      window.alert('Could not download PowerPoint. Please try again.')
+      window.alert('Could not download the STARBOOKS PDF. Please try again.')
     } finally {
-      setExporting(false)
+      setDownloading(false)
     }
   }
 
@@ -97,12 +106,12 @@ export default function Presentation() {
           <button
             type="button"
             className="download-btn"
-            onClick={handleDownloadPpt}
-            disabled={exporting}
-            title="Download PowerPoint"
+            onClick={handleDownloadPdf}
+            disabled={downloading}
+            title="Download STARBOOKS PDF"
           >
             <Download size={18} />
-            <span>{exporting ? 'Exporting…' : 'Download PPT'}</span>
+            <span>{downloading ? 'Downloading…' : 'Download PDF'}</span>
           </button>
           <button
             type="button"
