@@ -1,324 +1,408 @@
 import {
-  BookOpen,
-  Search,
-  Video,
-  FileText,
-  FlaskConical,
-  GraduationCap,
+  Gift,
+  Globe,
+  Monitor,
+  Package,
+  Smartphone,
+  Users,
   WifiOff,
-  FolderTree,
 } from 'lucide-react'
 
-export const aboutStats = [
-  { value: '8,000+', label: 'Sites nationwide' },
-  { value: 'Free', label: 'Access for users' },
-  { value: 'Offline & Online', label: 'Platforms' },
-  { value: '2011', label: 'Launched by DOST-STII' },
-]
+export const starbooksAcronym =
+  'Science and Technology Academic and Research-Based Openly Operated Kiosks'
 
-export const aboutContentTypes = [
+export const teacherBenefits = [
   {
-    title: 'Research & Journals',
-    desc: 'Research papers, journal articles, and technical reports from DOST and partners.',
+    title: 'Supplement classroom lessons',
+    desc: 'Add credible S&T materials that support your existing lesson plans.',
   },
   {
-    title: 'K–12 Materials',
-    desc: 'Learning and teaching resources for Grades 1 to 12 students.',
+    title: 'Find additional learning resources',
+    desc: 'Discover articles, modules, and references beyond the textbook.',
   },
   {
-    title: 'Videos & Livelihood',
-    desc: 'Educational videos including Tamang DOSTkarte livelihood content.',
+    title: 'Support student research',
+    desc: 'Give students reliable sources for reports and investigatory projects.',
   },
   {
-    title: 'S&T References',
-    desc: 'Reference volumes in science and technology from DOST-STII Library.',
+    title: 'Provide multimedia learning materials',
+    desc: 'Use videos, simulations, and interactive content to explain difficult topics.',
   },
   {
-    title: 'Exam Readiness',
-    desc: 'PISA and TIMSS readiness materials on the online portal.',
+    title: 'Give students activities and quizzes',
+    desc: 'Reinforce learning with built-in assessments and classroom activities.',
   },
   {
-    title: 'Financial Literacy',
-    desc: 'Practical learning materials that support life and skills education.',
-  },
-]
-
-export const aboutHighlights = [
-  'Hundreds of thousands of science and technology resources in text, audio, and video formats',
-  'Works offline through a stand-alone school kiosk and online at starbooks.ph',
-  'Multi-access feature allows several users to connect via local network (LAN) at school',
-  'Free supplemental tool for research, teaching, and learning — not a replacement for the teacher',
-  'Brings science, technology, and innovation information closer to Filipino learners',
-  'Deployed in schools, LGUs, government agencies, and partner institutions nationwide',
-]
-
-export const benefits = [
-  {
-    title: 'Works Without Internet',
-    desc: 'Access books, videos, and learning materials through the offline kiosk — ideal for schools with limited or no internet connection.',
+    title: 'Encourage independent learning',
+    desc: 'Let students explore topics on their own and develop study habits.',
   },
   {
-    title: 'Enrich Your Lessons',
-    desc: 'Use articles and videos to supplement your discussion and make abstract topics easier for students to understand.',
-  },
-  {
-    title: 'Provide Quality References',
-    desc: 'Give students credible DOST-sourced materials for reading, review, and deeper learning beyond the textbook.',
-  },
-  {
-    title: 'Support Research & Projects',
-    desc: 'Help students find reliable sources for reports, investigations, and classroom research assignments.',
-  },
-  {
-    title: 'Promote Independent Learning',
-    desc: 'Encourage students to explore topics on their own and develop self-directed study habits.',
-  },
-  {
-    title: 'Access S&T Resources',
-    desc: 'Bring science and technology content closer to learners — even in remote or underserved areas.',
+    title: 'Reach learners with limited internet',
+    desc: 'Use the offline kiosk where connectivity is unreliable or unavailable.',
   },
 ]
 
-export const features = [
+export const insideResources = [
+  'K–12 Materials',
+  'Science',
+  'Mathematics',
+  'Energy',
+  'Agriculture',
+  'Food and Nutrition',
+  'Environmental Resources',
+  'Philippine Science',
+  'Philippine Journal of Science',
+  'DOSTv',
+  'Investigatory Projects',
+  'Theses / Dissertations',
+  'SAT Encyclopedia',
+  'Math & Science Simulations',
+  'Videos',
+  'Storybooks',
+  'Research Projects',
+  'TIMSS',
+  'PISA',
+]
+
+export const gradeLevelResources = [
   {
-    icon: BookOpen,
-    title: 'Digital Library',
-    desc: 'A collection of digitized science and technology resources organized for easy browsing.',
-    action: 'Open books, journals, and modules aligned with your lesson.',
+    level: 'Elementary',
+    resources: 'Science, Mathematics, English, Filipino, Health, Arts',
   },
   {
-    icon: Search,
-    title: 'Search',
-    desc: 'Quickly find topics, articles, videos, and documents using keywords.',
-    action: 'Example: Search "Climate Change" and pick a resource for class.',
+    level: 'Junior High School',
+    resources: 'Science, Mathematics, Social Studies, Health, Technology',
   },
   {
-    icon: Video,
-    title: 'Videos & Multimedia',
-    desc: 'Educational videos including Tamang DOSTkarte livelihood content.',
-    action: 'Show a video during discussion to make the lesson more engaging.',
+    level: 'Senior High School',
+    resources:
+      'General Mathematics, Earth Science, Biology, Chemistry, Physics, Media & Information Literacy',
   },
   {
-    icon: FileText,
-    title: 'E-books & Documents',
-    desc: 'Journals, theses, technical reports, and other reference materials.',
-    action: 'Display or assign readings for research and class activities.',
+    level: 'College',
+    resources: 'General Education subjects, Science & Technology, research resources',
   },
-  {
-    icon: FlaskConical,
-    title: 'Science & Technology',
-    desc: 'Research papers and S&T content from DOST and partner institutions.',
-    action: 'Use for STEM lessons, research classes, and advanced topics.',
-  },
-  {
-    icon: GraduationCap,
-    title: 'K–12 & College Materials',
-    desc: 'Grade-appropriate resources including GEC, PISA, and TIMSS readiness content.',
-    action: 'Assign materials that match your students\' grade level.',
-  },
+]
+
+export const mainFeatures = [
   {
     icon: WifiOff,
-    title: 'Offline Access',
-    desc: 'The kiosk works as a stand-alone "Library in a Box" without internet.',
-    action: 'Use STARBOOKS anytime at school — no Wi-Fi required.',
+    title: 'OFFLINE',
+    desc: 'Access resources without an internet connection through the STARBOOKS kiosk.',
   },
   {
-    icon: FolderTree,
-    title: 'Organized Categories',
-    desc: 'Resources sorted by subject, format, and grade level for easy navigation.',
-    action: 'Browse by category when you want to discover new materials.',
+    icon: Users,
+    title: 'MULTI-ACCESS',
+    desc: 'Available through different platforms so more learners can connect.',
+  },
+  {
+    icon: Package,
+    title: 'TRANSPORTABLE',
+    desc: 'Bring digital learning resources to different locations and communities.',
+  },
+  {
+    icon: Gift,
+    title: 'FREE',
+    desc: 'Free access for users, with free installation for qualified institutions.',
   },
 ]
 
-export const tutorialSteps = [
+export const platforms = [
   {
-    title: 'Start STARBOOKS',
-    desc: 'Begin by opening the STARBOOKS system on your school kiosk or computer.',
-    points: [
-      'Turn on the STARBOOKS kiosk and wait for it to load completely.',
-      'Or visit www.starbooks.ph and register to access resources for free.',
-      'Make sure the home screen is ready before proceeding.',
+    icon: Monitor,
+    emoji: '🖥️',
+    title: 'STARBOOKS Offline',
+    subtitle: 'For the STARBOOKS kiosk or computer',
+    bestFor: [
+      'Schools with limited or no internet',
+      'Classroom and library use',
+      'Accessing the full offline collection',
     ],
   },
   {
-    title: 'Explore the Home Screen',
-    desc: 'Familiarize yourself with the main menus so you know where everything is.',
-    points: [
-      'Library — browse all available materials.',
-      'Search — find a specific topic quickly.',
-      'Categories — explore resources by subject.',
-      'Videos — access multimedia content.',
+    icon: Globe,
+    emoji: '🌐',
+    title: 'STARBOOKS Online',
+    subtitle: 'For accessing STARBOOKS content online at starbooks.ph',
+    bestFor: [
+      'Requires internet access',
+      'More than 8,000 K–12 lessons, quizzes, and activities',
+      'Remote access from any connected device',
     ],
   },
   {
-    title: 'Search for a Topic',
-    desc: 'Use Search when you already know what lesson or topic you need.',
-    points: [
-      'Click Search and type your topic (e.g. "Climate Change").',
-      'Review the list of articles, videos, and documents.',
-      'Select one resource and open it to read or watch.',
-    ],
-  },
-  {
-    title: 'Browse by Category',
-    desc: 'Use Categories when you want to explore available materials without searching.',
-    points: [
-      'Open Categories from the home screen.',
-      'Choose a subject such as Science, Technology, or K–12.',
-      'Pick a resource that fits your lesson plan.',
-    ],
-  },
-  {
-    title: 'Use the Resource in Class',
-    desc: 'Apply what you found to your actual teaching session.',
-    points: [
-      'Present the article or video during class discussion.',
-      'Highlight key points and ask guide questions.',
-      'Assign a follow-up activity or homework based on the resource.',
+    icon: Smartphone,
+    emoji: '📱',
+    title: 'Mobile Apps',
+    subtitle: 'For portable access through mobile devices',
+    bestFor: [
+      'Portable learning on phones and tablets',
+      'Concise, mobile-friendly content',
+      'Gamified and interactive materials',
     ],
   },
 ]
 
-export const useCases = [
+export const offlineAccessSteps = [
+  {
+    step: 1,
+    title: 'Open This PC / My Computer',
+    detail: 'From the desktop or File Explorer, open This PC (Windows) or My Computer.',
+    image: '/images/offline-step-1-this-pc.png',
+    alt: 'Windows File Explorer showing This PC',
+  },
+  {
+    step: 2,
+    title: 'Select the external drive',
+    detail: 'Choose the drive where STARBOOKS is installed — usually an external USB drive.',
+    image: '/images/offline-step-2-external-drive.png',
+    alt: 'File Explorer showing the STARBOOKS external drive',
+  },
+  {
+    step: 3,
+    title: 'Open the STARBOOKS-offline folder',
+    detail: 'Double-click the STARBOOKS-offline folder to open it.',
+    image: '/images/offline-step-3-folder.png',
+    alt: 'STARBOOKS-offline folder in File Explorer',
+  },
+  {
+    step: 4,
+    title: 'Run sb_controller_2024.exe',
+    detail: 'Double-click sb_controller_2024.exe to launch STARBOOKS on the kiosk.',
+    image: '/images/offline-step-4-exe.png',
+    alt: 'sb_controller_2024.exe in File Explorer',
+  },
+]
+
+export const searchExample = 'Photosynthesis'
+
+export const searchSteps = [
+  {
+    title: 'Select Search or a relevant category',
+    desc: 'Use Search for a specific topic, or browse Science / K–12 categories.',
+  },
+  {
+    title: 'Enter "Photosynthesis"',
+    desc: 'Type your keyword and review the list of matching resources.',
+  },
+  {
+    title: 'Browse and open a resource',
+    desc: 'Preview lessons, videos, or activities — pick what fits your learning objective.',
+  },
+  {
+    title: 'Use it in your lesson',
+    desc: 'Present in class, assign for homework, or use for discussion.',
+  },
+]
+
+export const classUsePhases = [
   {
     phase: 'Before Class',
-    emoji: '☀️',
-    summary: 'Prepare your lesson with ready resources.',
+    emoji: '🔎',
     items: [
-      {
-        title: 'Find supplementary materials',
-        desc: 'Search STARBOOKS for articles and videos related to your topic.',
-      },
-      {
-        title: 'Research your lesson',
-        desc: 'Review content ahead of time so you know what to highlight in class.',
-      },
-      {
-        title: 'Prepare references',
-        desc: 'Save or note specific resources you plan to show during the lesson.',
-      },
+      { emoji: '🔎', text: 'Search for supplementary materials' },
+      { emoji: '📚', text: 'Review references' },
+      { emoji: '🎥', text: 'Find videos' },
+      { emoji: '📝', text: 'Prepare activities' },
     ],
   },
   {
     phase: 'During Class',
-    emoji: '🎯',
-    summary: 'Make your lesson interactive and visual.',
+    emoji: '📺',
     items: [
-      {
-        title: 'Show educational videos',
-        desc: 'Use multimedia to explain concepts clearly and keep students engaged.',
-      },
-      {
-        title: 'Use articles in discussion',
-        desc: 'Read key points together and ask students to share their thoughts.',
-      },
-      {
-        title: 'Let students explore',
-        desc: 'Allow them to browse related resources on the kiosk during activities.',
-      },
+      { emoji: '📺', text: 'Show multimedia resources' },
+      { emoji: '📖', text: 'Use digital references' },
+      { emoji: '🧪', text: 'Demonstrate science concepts' },
+      { emoji: '💡', text: 'Facilitate discussion' },
     ],
   },
   {
     phase: 'After Class',
-    emoji: '📝',
-    summary: 'Extend learning beyond the classroom.',
+    emoji: '📚',
     items: [
-      {
-        title: 'Assign research topics',
-        desc: 'Give students specific STARBOOKS resources to read or watch at home.',
-      },
-      {
-        title: 'Recommend resources',
-        desc: 'Point students to credible materials for review and study.',
-      },
-      {
-        title: 'Support projects & reports',
-        desc: 'Use STARBOOKS as a reference library for assignments and group work.',
-      },
+      { emoji: '📚', text: 'Assign research' },
+      { emoji: '📝', text: 'Give activities' },
+      { emoji: '🔎', text: 'Let students explore topics' },
+      { emoji: '📊', text: 'Use quizzes and resources for reinforcement' },
     ],
   },
 ]
 
-export const activitySteps = [
+export const classroomScenario = {
+  topic: 'The Respiratory and Circulatory Systems',
+  subject: 'Science 9',
+  steps: [
+    {
+      title: 'Teacher introduces the topic',
+      desc: 'Begin with a brief overview of how the respiratory and circulatory systems work together.',
+    },
+    {
+      title: 'Open STARBOOKS',
+      desc: 'Launch the kiosk or open starbooks.ph on your classroom computer.',
+    },
+    {
+      title: 'Search or locate Science 9 material',
+      desc: 'Find the lesson on the Respiratory and Circulatory Systems in the Science 9 collection.',
+    },
+    {
+      title: 'Open the lesson',
+      desc: 'Review the content and identify key points to highlight with your class.',
+    },
+    {
+      title: 'Show the illustration or video',
+      desc: 'Use multimedia to help students visualize how the systems function.',
+    },
+    {
+      title: 'Let students answer the activity or quiz',
+      desc: 'Use the built-in multiple-choice activity to check understanding.',
+    },
+    {
+      title: 'Discuss the answers',
+      desc: 'Facilitate a class discussion to clarify misconceptions and reinforce learning.',
+    },
+  ],
+}
+
+export const interactiveMaterials = [
   {
-    title: 'Introduce the Topic',
-    desc: 'The teacher begins the lesson by explaining what Renewable Energy is and why it matters.',
+    emoji: '📖',
+    title: 'Storybooks',
+    desc: 'Science and Mathematics storybooks for engaging early learning.',
   },
   {
-    title: 'Open STARBOOKS',
-    desc: 'Launch the kiosk or go to starbooks.ph and navigate to the Search menu.',
+    emoji: '🎥',
+    title: 'Short Videos',
+    desc: 'Short educational videos that explain concepts visually.',
   },
   {
-    title: 'Search "Solar Energy"',
-    desc: 'Find articles and videos about solar power that match the lesson objective.',
+    emoji: '🧮',
+    title: 'Simulations',
+    desc: 'Math and science simulations for hands-on virtual exploration.',
   },
   {
-    title: 'Present to the Class',
-    desc: 'Show the selected resource on screen and discuss the main ideas with students.',
+    emoji: '📝',
+    title: 'Quizzes',
+    desc: 'Interactive assessment materials to check student understanding.',
   },
   {
-    title: 'Student Activity',
-    desc: 'Students take notes and answer guide questions based on what they learned.',
+    emoji: '🔬',
+    title: 'Investigatory Projects',
+    desc: 'Research and project references for student investigations.',
   },
 ]
 
-export const guideQuestions = [
-  'What is renewable energy?',
-  'How does solar energy work?',
-  'Why is it important for our community?',
+export const lessonFlow = [
+  { emoji: '📖', label: 'LESSON', desc: 'Read the learning material' },
+  { emoji: '🎥', label: 'MULTIMEDIA', desc: 'Watch the related video' },
+  { emoji: '🧮', label: 'INTERACTIVE', desc: 'Try the simulation' },
+  { emoji: '📝', label: 'ACTIVITY', desc: 'Answer the questions' },
+  { emoji: '🔎', label: 'RESEARCH', desc: 'Explore related resources' },
+]
+
+export const platformComparison = {
+  headers: ['', 'Offline', 'Online', 'Mobile'],
+  rows: [
+    {
+      label: 'Internet',
+      offline: '❌ Not required',
+      online: '✅ Required',
+      mobile: '✅ Required',
+    },
+    {
+      label: 'Device',
+      offline: 'STARBOOKS kiosk / computer',
+      online: 'Computer or device',
+      mobile: 'Phone / tablet',
+    },
+    {
+      label: 'Access',
+      offline: 'School / site',
+      online: 'Anywhere with internet',
+      mobile: 'Anywhere with internet',
+    },
+    {
+      label: 'Content',
+      offline: 'Full offline collection',
+      online: 'Online collection',
+      mobile: 'Concise mobile content',
+    },
+    {
+      label: 'Best Use',
+      offline: 'Schools / classrooms',
+      online: 'Remote access',
+      mobile: 'Individual learning',
+    },
+  ],
+}
+
+export const teacherTips = [
+  {
+    num: 1,
+    title: 'Search before your lesson',
+    desc: 'Find relevant materials ahead of time so you are prepared.',
+  },
+  {
+    num: 2,
+    title: 'Match resources with your learning objective',
+    desc: "Don't use a resource just because it's available — choose what fits your goal.",
+  },
+  {
+    num: 3,
+    title: 'Use multimedia strategically',
+    desc: 'Videos and simulations can reinforce difficult concepts when used at the right moment.',
+  },
+  {
+    num: 4,
+    title: 'Encourage student exploration',
+    desc: 'Let students search for related information and discover topics on their own.',
+  },
+  {
+    num: 5,
+    title: 'Combine STARBOOKS with your existing materials',
+    desc: 'Use it as a supplementary resource alongside your textbook and lesson plans.',
+  },
 ]
 
 export const workshopTasks = [
   {
-    task: 'Search for a topic related to your subject',
-    hint: 'Example: "Photosynthesis" for Science or "Ecosystem" for Biology.',
+    task: 'Choose one topic from your subject',
+    hint: 'Pick something you will teach in the next week or two.',
   },
   {
-    task: 'Open one resource and explore it',
-    hint: 'Read an article or watch a short video from start to finish.',
+    task: 'Search STARBOOKS',
+    hint: 'Use Search or browse by category to find related materials.',
   },
   {
-    task: 'Plan how to use it in a lesson',
-    hint: 'Will you show it in class, assign it as homework, or use it for discussion?',
+    task: 'Find one useful resource',
+    hint: 'Look for a lesson, video, activity, or reference that fits your topic.',
   },
   {
-    task: 'Share your idea with the group',
-    hint: 'Tell others your topic, the resource you found, and your teaching plan.',
+    task: 'Open and explore the resource',
+    hint: 'Preview the content so you know what to highlight in class.',
+  },
+  {
+    task: 'Identify how you can use it in your lesson',
+    hint: 'Will you show it in class, assign it, or use it for a quiz?',
   },
 ]
 
-export const reminderPoints = [
-  {
-    title: 'Information',
-    desc: 'Facts and explanations to support your lessons.',
-  },
-  {
-    title: 'References',
-    desc: 'Credible DOST-sourced materials for research and reports.',
-  },
-  {
-    title: 'Videos & Multimedia',
-    desc: 'Visual content that makes difficult topics easier to understand.',
-  },
-  {
-    title: 'Research Materials',
-    desc: 'Articles, journals, and documents for deeper learning.',
-  },
-  {
-    title: 'Learning Activities',
-    desc: 'Ideas for homework, projects, and classroom exercises.',
-  },
-  {
-    title: 'Teacher-Led Learning',
-    desc: 'You still guide discussion, facilitate activities, and assess understanding.',
-  },
-]
+export const workshopQuestion =
+  'What STARBOOKS resource can you use in your next class?'
 
-export const closingPoints = [
-  { word: 'Explore', desc: 'Discover science & technology resources' },
-  { word: 'Learn', desc: 'Grow your knowledge alongside students' },
-  { word: 'Teach', desc: 'Use STARBOOKS to enrich your lessons' },
-  { word: 'Innovate', desc: 'Bring digital learning to your classroom' },
+export const recapPoints = [
+  { emoji: '📚', word: 'LEARN', desc: 'Access educational resources.' },
+  { emoji: '🔎', word: 'SEARCH', desc: 'Find materials related to your lessons.' },
+  {
+    emoji: '🎥',
+    word: 'EXPLORE',
+    desc: 'Use videos, activities, simulations, and other multimedia.',
+  },
+  { emoji: '👨‍🏫', word: 'TEACH', desc: 'Integrate resources into classroom instruction.' },
+  {
+    emoji: '🧑‍🎓',
+    word: 'ENGAGE',
+    desc: 'Encourage students to explore and learn independently.',
+  },
 ]
 
 export const manualSections = [
@@ -331,42 +415,25 @@ export const manualSections = [
     ],
   },
   {
-    title: '2. How to Open STARBOOKS',
+    title: '2. How to Open STARBOOKS Offline',
     items: [
-      'Offline kiosk: Turn on the STARBOOKS unit and wait for the home screen to load.',
-      'Online: Go to www.starbooks.ph and register to access resources for free.',
-      'LAN (if available): Multiple users at school may access STARBOOKS via local network.',
+      'Open This PC / My Computer.',
+      'Select the external drive where STARBOOKS is installed.',
+      'Open the STARBOOKS-offline folder.',
+      'Run sb_controller_2024.exe.',
     ],
   },
   {
-    title: '3. Main Menus to Know',
+    title: '3. How to Search a Topic',
     items: [
-      'Library — browse all available materials.',
-      'Search — find a topic using keywords.',
-      'Categories — explore resources by subject or grade level.',
-      'Videos — watch educational and DOSTkarte content.',
+      'Open STARBOOKS (offline kiosk or starbooks.ph).',
+      'Click Search or browse a relevant category.',
+      'Type your topic (e.g. "Photosynthesis").',
+      'Open a lesson, video, or activity from the results.',
     ],
   },
   {
-    title: '4. How to Search a Topic',
-    items: [
-      'Click Search on the home screen.',
-      'Type your topic (e.g. "Renewable Energy" or "Photosynthesis").',
-      'Open an article, video, or document from the results.',
-      'Use it in class discussion or assign it to students.',
-    ],
-  },
-  {
-    title: '5. How to Browse by Category',
-    items: [
-      'Open Categories from the home screen.',
-      'Choose a subject such as Science, Technology, or K–12.',
-      'Pick a resource that matches your lesson objective.',
-      'Preview it before class so you know what to highlight.',
-    ],
-  },
-  {
-    title: '6. Using STARBOOKS in Class',
+    title: '4. Using STARBOOKS in Class',
     items: [
       'Before class: Search and prepare materials for your lesson.',
       'During class: Show videos or articles and ask guide questions.',
@@ -374,16 +441,16 @@ export const manualSections = [
     ],
   },
   {
-    title: '7. Teacher Tips',
+    title: '5. Teacher Tips',
     items: [
-      'Always preview a resource before presenting it to students.',
-      'Combine STARBOOKS content with your own explanation and activities.',
+      'Search before your lesson and match resources to your objective.',
+      'Use multimedia strategically to reinforce difficult concepts.',
       'Encourage students to explore related topics on their own.',
-      'Use credible DOST materials for research and project work.',
+      'Combine STARBOOKS with your existing teaching materials.',
     ],
   },
   {
-    title: '8. Need Help?',
+    title: '6. Need Help?',
     items: [
       'Website: www.starbooks.ph',
       'DOST-STII: stii.dost.gov.ph/starbooks',

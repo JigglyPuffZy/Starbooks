@@ -1,16 +1,17 @@
 import {
-  aboutContentTypes,
-  aboutHighlights,
-  aboutStats,
-  activitySteps,
-  benefits,
-  closingPoints,
-  features,
-  guideQuestions,
-  manualSections,
-  reminderPoints,
-  tutorialSteps,
-  useCases,
+  classUsePhases,
+  gradeLevelResources,
+  insideResources,
+  lessonFlow,
+  mainFeatures,
+  offlineAccessSteps,
+  platforms,
+  recapPoints,
+  searchExample,
+  searchSteps,
+  starbooksAcronym,
+  teacherBenefits,
+  workshopQuestion,
   workshopTasks,
 } from '../data/starbooksContent'
 
@@ -22,9 +23,9 @@ const GRAY = '4A5568'
 const WHITE = 'FFFFFF'
 const BG = 'F5FBFE'
 
-async function loadLogo() {
+async function loadImage(path) {
   try {
-    const res = await fetch('/starbooks-logo.png')
+    const res = await fetch(path)
     const blob = await res.blob()
     return await new Promise((resolve, reject) => {
       const reader = new FileReader()
@@ -35,6 +36,10 @@ async function loadLogo() {
   } catch {
     return null
   }
+}
+
+async function loadLogo() {
+  return loadImage('/starbooks-logo.png')
 }
 
 function brandBar(slide) {
@@ -72,7 +77,7 @@ function slideHeader(slide, tag, title, subtitle) {
     y: 0.85,
     w: 12,
     h: 0.75,
-    fontSize: 28,
+    fontSize: 26,
     bold: true,
     color: BLACK,
     fontFace: 'Arial',
@@ -83,62 +88,17 @@ function slideHeader(slide, tag, title, subtitle) {
       y: 1.55,
       w: 11.5,
       h: 0.55,
-      fontSize: 14,
+      fontSize: 13,
       color: GRAY,
     })
   }
 }
 
-function twoColumnCards(pptx, { tag, title, subtitle, items, mapItem }) {
-  const slide = pptx.addSlide()
-  slide.background = { color: BG }
-  brandBar(slide)
-  slideHeader(slide, tag, title, subtitle)
-
-  const colW = 5.9
-  items.forEach((item, i) => {
-    const col = i % 2
-    const row = Math.floor(i / 2)
-    const x = 0.6 + col * (colW + 0.35)
-    const y = 2.15 + row * 1.55
-    const { heading, body } = mapItem(item)
-
-    slide.addShape('roundRect', {
-      x,
-      y,
-      w: colW,
-      h: 1.35,
-      fill: { color: WHITE },
-      line: { color: 'CCE9F5', width: 1 },
-      rectRadius: 0.08,
-    })
-    slide.addShape('rect', {
-      x,
-      y,
-      w: 0.08,
-      h: 1.35,
-      fill: { color: BLUE },
-      line: { type: 'none' },
-    })
-    slide.addText(heading, {
-      x: x + 0.2,
-      y: y + 0.12,
-      w: colW - 0.35,
-      h: 0.35,
-      fontSize: 12,
-      bold: true,
-      color: BLUE_DARK,
-    })
-    slide.addText(body, {
-      x: x + 0.2,
-      y: y + 0.48,
-      w: colW - 0.35,
-      h: 0.75,
-      fontSize: 10,
-      color: GRAY,
-      valign: 'top',
-    })
-  })
+function bulletBlock(slide, items, y, h = 4) {
+  slide.addText(
+    items.map((text) => ({ text, options: { bullet: true, breakLine: true } })),
+    { x: 0.75, y, w: 12, h, fontSize: 11, color: BLACK, valign: 'top', lineSpacing: 16 },
+  )
 }
 
 export async function exportStarbooksPptx() {
@@ -147,59 +107,46 @@ export async function exportStarbooksPptx() {
   pptx.layout = 'LAYOUT_WIDE'
   pptx.author = 'DOST-STII'
   pptx.title = 'STARBOOKS Teacher Orientation'
-  pptx.subject = 'Teacher Orientation & User Guide'
+  pptx.subject = 'Using STARBOOKS as a Digital Learning and Research Resource'
 
   const logo = await loadLogo()
+  const offlineImages = await Promise.all(
+    offlineAccessSteps.map((step) => loadImage(step.image)),
+  )
 
-  // ── 1. Title ──
+  // 1. Title
   const titleSlide = pptx.addSlide()
   titleSlide.background = { color: BG }
   brandBar(titleSlide)
-  if (logo) {
-    titleSlide.addImage({ data: logo, x: 5.35, y: 1.15, w: 2.3, h: 1.1 })
-  }
-  titleSlide.addText('Department of Science and Technology (DOST)', {
+  if (logo) titleSlide.addImage({ data: logo, x: 5.35, y: 0.95, w: 2.3, h: 1.1 })
+  titleSlide.addText(
+    'Department of Science and Technology – Science and Technology Information Institute',
+    { x: 0.6, y: 2.2, w: 12, h: 0.5, fontSize: 12, color: GRAY, align: 'center' },
+  )
+  titleSlide.addText('STARBOOKS Teacher Orientation', {
     x: 0.6,
-    y: 2.45,
+    y: 2.75,
     w: 12,
-    h: 0.4,
-    fontSize: 13,
-    color: GRAY,
-    align: 'center',
-  })
-  titleSlide.addText('STARBOOKS', {
-    x: 0.6,
-    y: 2.85,
-    w: 12,
-    h: 1,
-    fontSize: 54,
+    h: 0.9,
+    fontSize: 36,
     bold: true,
     color: BLUE,
     align: 'center',
   })
-  titleSlide.addText('A Digital Library for Science, Technology, and Education', {
+  titleSlide.addText('Using STARBOOKS as a Digital Learning and Research Resource', {
     x: 1,
-    y: 3.85,
+    y: 3.65,
     w: 11.3,
     h: 0.55,
-    fontSize: 18,
+    fontSize: 16,
     bold: true,
     color: BLACK,
     align: 'center',
   })
-  titleSlide.addText('Teacher Orientation & User Guide', {
-    x: 0.6,
+  titleSlide.addText('Library in a Box  ·  Free for Schools', {
+    x: 3.5,
     y: 4.45,
-    w: 12,
-    h: 0.4,
-    fontSize: 14,
-    color: GRAY,
-    align: 'center',
-  })
-  titleSlide.addText('Stand-alone Kiosk  ·  Free Access  ·  starbooks.ph', {
-    x: 3.2,
-    y: 5.1,
-    w: 6.9,
+    w: 6.3,
     h: 0.45,
     fontSize: 12,
     bold: true,
@@ -209,215 +156,321 @@ export async function exportStarbooksPptx() {
     shape: pptx.ShapeType.roundRect,
   })
 
-  // ── 2. About ──
-  const about = pptx.addSlide()
-  about.background = { color: BG }
-  brandBar(about)
-  slideHeader(
-    about,
-    'What is STARBOOKS?',
-    'Science & Technology Library for Schools',
-    'STARBOOKS = Science and Technology Academic- and Research-Based Openly-Operated KioskS',
-  )
-  about.addShape('roundRect', {
+  // 2. What is STARBOOKS?
+  const whatIs = pptx.addSlide()
+  whatIs.background = { color: BG }
+  brandBar(whatIs)
+  slideHeader(whatIs, 'What is STARBOOKS?', 'STARBOOKS', starbooksAcronym)
+  whatIs.addShape('roundRect', {
     x: 0.6,
     y: 2.15,
     w: 12.1,
-    h: 0.95,
+    h: 0.75,
     fill: { color: 'E6F7FD' },
     line: { color: BLUE, width: 1 },
     rectRadius: 0.06,
   })
-  about.addText(
-    'A free digital library from DOST-STII, launched in 2011. It serves as a stand-alone supplemental tool for research, teaching, and learning — giving teachers and students access to science, technology, and educational resources even without reliable internet.',
-    { x: 0.85, y: 2.25, w: 11.6, h: 0.85, fontSize: 12, color: BLACK },
+  whatIs.addText(
+    'STARBOOKS is a digital library that provides access to Science, Technology, and educational resources through different platforms.',
+    { x: 0.85, y: 2.25, w: 11.6, h: 0.6, fontSize: 12, color: BLACK },
   )
-  aboutStats.forEach((stat, i) => {
-    const x = 0.6 + i * 3.08
-    about.addShape('roundRect', {
-      x,
-      y: 3.2,
-      w: 2.85,
-      h: 0.85,
-      fill: { color: WHITE },
-      line: { color: 'CCE9F5', width: 1 },
-      rectRadius: 0.08,
-    })
-    about.addText(stat.value, {
-      x,
-      y: 3.28,
-      w: 2.85,
-      h: 0.4,
-      fontSize: stat.value.length > 6 ? 14 : 18,
-      bold: true,
-      color: BLUE,
-      align: 'center',
-    })
-    about.addText(stat.label, {
-      x,
-      y: 3.68,
-      w: 2.85,
-      h: 0.3,
-      fontSize: 8,
-      bold: true,
-      color: GRAY,
-      align: 'center',
-    })
-  })
+  whatIs.addText(
+    "Described as the Philippines' first S&T digital library in a box — bringing science and technology information closer to Filipino learners.",
+    { x: 0.85, y: 3.05, w: 11.6, h: 0.55, fontSize: 11, bold: true, color: BLACK, fill: { color: 'FFF8E1' } },
+  )
+  bulletBlock(whatIs, [
+    'Free digital library from DOST-STII, launched in 2011',
+    'Works offline through a stand-alone school kiosk and online at starbooks.ph',
+    'Supplemental tool for research, teaching, and learning',
+  ], 3.75, 2.5)
 
-  const about2 = pptx.addSlide()
-  about2.background = { color: BG }
-  brandBar(about2)
+  // 3. Why for Teachers
+  const why = pptx.addSlide()
+  why.background = { color: BG }
+  brandBar(why)
   slideHeader(
-    about2,
-    'What is STARBOOKS?',
-    "What's Inside STARBOOKS?",
-    'Digitized science and technology resources organized for teachers and students',
+    why,
+    'Why STARBOOKS for Teachers?',
+    'How STARBOOKS Supports Your Teaching',
+    'Practical ways teachers can use STARBOOKS in everyday classroom instruction',
   )
-  aboutContentTypes.forEach((item, i) => {
-    const col = i % 3
-    const row = Math.floor(i / 3)
-    const x = 0.6 + col * 4.1
-    const y = 2.15 + row * 1.55
-    about2.addShape('roundRect', {
+  teacherBenefits.forEach((b, i) => {
+    const col = i % 2
+    const row = Math.floor(i / 2)
+    const x = 0.6 + col * 6.25
+    const y = 2.15 + row * 1.05
+    why.addShape('roundRect', {
       x,
       y,
-      w: 3.85,
-      h: 1.35,
+      w: 5.9,
+      h: 0.9,
       fill: { color: WHITE },
       line: { color: 'CCE9F5', width: 1 },
       rectRadius: 0.06,
     })
-    about2.addText(item.title, {
+    why.addText(b.title, {
       x: x + 0.15,
-      y: y + 0.12,
-      w: 3.55,
-      h: 0.35,
+      y: y + 0.1,
+      w: 5.6,
+      h: 0.3,
+      fontSize: 11,
+      bold: true,
+      color: BLUE_DARK,
+    })
+    why.addText(b.desc, {
+      x: x + 0.15,
+      y: y + 0.4,
+      w: 5.6,
+      h: 0.45,
+      fontSize: 9,
+      color: GRAY,
+    })
+  })
+
+  // 4. What's Inside
+  const inside = pptx.addSlide()
+  inside.background = { color: BG }
+  brandBar(inside)
+  slideHeader(
+    inside,
+    'What Can You Find Inside STARBOOKS?',
+    'A Rich Collection of Learning Resources',
+    'Science, technology, and education materials organized for teachers and students',
+  )
+  insideResources.forEach((item, i) => {
+    const col = i % 4
+    const row = Math.floor(i / 4)
+    const x = 0.6 + col * 3.08
+    const y = 2.2 + row * 0.55
+    inside.addText(item, {
+      x,
+      y,
+      w: 2.85,
+      h: 0.4,
+      fontSize: 9,
+      bold: true,
+      color: BLUE_DARK,
+      fill: { color: WHITE },
+      align: 'center',
+      shape: pptx.ShapeType.roundRect,
+    })
+  })
+
+  // 5. Grade Levels
+  const grades = pptx.addSlide()
+  grades.background = { color: BG }
+  brandBar(grades)
+  slideHeader(
+    grades,
+    'STARBOOKS for Different Grade Levels',
+    'Resources by Education Level',
+    "Match STARBOOKS materials to your students' grade or program",
+  )
+  gradeLevelResources.forEach((row, i) => {
+    const y = 2.25 + i * 0.95
+    grades.addShape('rect', {
+      x: 0.6,
+      y,
+      w: 12.1,
+      h: 0.85,
+      fill: { color: i % 2 ? 'E6F7FD' : WHITE },
+      line: { color: 'CCE9F5', width: 1 },
+    })
+    grades.addText(row.level, {
+      x: 0.75,
+      y: y + 0.15,
+      w: 2.5,
+      h: 0.55,
+      fontSize: 12,
+      bold: true,
+      color: BLUE_DARK,
+    })
+    grades.addText(row.resources, {
+      x: 3.4,
+      y: y + 0.15,
+      w: 9.1,
+      h: 0.55,
+      fontSize: 11,
+      color: GRAY,
+    })
+  })
+
+  // 6. Platforms & Features
+  const plat = pptx.addSlide()
+  plat.background = { color: BG }
+  brandBar(plat)
+  slideHeader(
+    plat,
+    'Platforms & Features',
+    'Access STARBOOKS Your Way',
+    'Offline, online, and mobile — free for schools and communities',
+  )
+  mainFeatures.forEach((f, i) => {
+    const x = 0.6 + i * 3.08
+    plat.addText(f.title, {
+      x,
+      y: 2.05,
+      w: 2.85,
+      h: 0.4,
       fontSize: 11,
       bold: true,
       color: BLACK,
+      fill: { color: i % 2 ? YELLOW : 'E6F7FD' },
+      align: 'center',
+      shape: pptx.ShapeType.roundRect,
     })
-    about2.addText(item.desc, {
+  })
+  platforms.forEach((p, i) => {
+    const x = 0.6 + i * 4.1
+    plat.addShape('roundRect', {
+      x,
+      y: 2.55,
+      w: 3.85,
+      h: 4.5,
+      fill: { color: WHITE },
+      line: { color: 'CCE9F5', width: 1 },
+      rectRadius: 0.08,
+    })
+    plat.addText(`${p.emoji} ${p.title}`, {
       x: x + 0.15,
-      y: y + 0.48,
+      y: 2.7,
       w: 3.55,
-      h: 0.75,
+      h: 0.45,
+      fontSize: 13,
+      bold: true,
+      color: BLUE_DARK,
+    })
+    plat.addText(p.subtitle, {
+      x: x + 0.15,
+      y: 3.2,
+      w: 3.55,
+      h: 0.5,
       fontSize: 9,
+      color: GRAY,
+    })
+    plat.addText(
+      p.bestFor.map((item) => ({ text: item, options: { bullet: true, breakLine: true } })),
+      { x: x + 0.15, y: 3.8, w: 3.55, h: 2.8, fontSize: 9, color: BLACK, valign: 'top' },
+    )
+  })
+
+  // 7. Offline Access
+  const offline = pptx.addSlide()
+  offline.background = { color: BG }
+  brandBar(offline)
+  slideHeader(
+    offline,
+    'How to Access STARBOOKS Offline',
+    'Launch STARBOOKS on the Kiosk',
+    'Follow these four steps to open STARBOOKS from the external drive',
+  )
+  offlineAccessSteps.forEach((step, i) => {
+    const x = 0.6 + i * 3.08
+    offline.addShape('roundRect', {
+      x,
+      y: 2.2,
+      w: 2.85,
+      h: 3.5,
+      fill: { color: WHITE },
+      line: { color: 'CCE9F5', width: 1 },
+      rectRadius: 0.06,
+    })
+    offline.addText(`Step ${step.step}`, {
+      x,
+      y: 2.3,
+      w: 2.85,
+      h: 0.3,
+      fontSize: 10,
+      bold: true,
+      color: BLUE,
+      align: 'center',
+    })
+    offline.addText(step.title, {
+      x: x + 0.1,
+      y: 2.65,
+      w: 2.65,
+      h: 0.55,
+      fontSize: 10,
+      bold: true,
+      color: BLACK,
+      align: 'center',
+    })
+    if (offlineImages[i]) {
+      offline.addImage({
+        data: offlineImages[i],
+        x: x + 0.12,
+        y: 3.25,
+        w: 2.6,
+        h: 1.55,
+      })
+    }
+    offline.addText(step.detail, {
+      x: x + 0.1,
+      y: 4.95,
+      w: 2.65,
+      h: 0.85,
+      fontSize: 8,
       color: GRAY,
       valign: 'top',
     })
   })
-  about2.addText(
-    aboutHighlights.map((b) => ({ text: b, options: { bullet: true, breakLine: true } })),
-    {
-      x: 0.75,
-      y: 5.35,
-      w: 12,
-      h: 1.8,
-      fontSize: 10,
-      color: BLACK,
-      valign: 'top',
-      lineSpacing: 16,
-    },
-  )
 
-  // ── 3. Benefits ──
-  twoColumnCards(pptx, {
-    tag: 'Why Use STARBOOKS?',
-    title: 'Benefits for Teachers',
-    subtitle: 'How STARBOOKS supports effective and meaningful classroom instruction',
-    items: benefits,
-    mapItem: (b) => ({ heading: b.title, body: b.desc }),
-  })
-
-  // ── 4. Features (2 slides) ──
-  ;[features.slice(0, 4), features.slice(4)].forEach((chunk, idx) => {
-    twoColumnCards(pptx, {
-      tag: 'Main Features',
-      title: idx === 0 ? 'What You Can Do with STARBOOKS (1/2)' : 'What You Can Do with STARBOOKS (2/2)',
-      subtitle: 'Each feature helps you find, use, and share learning materials with your students',
-      items: chunk,
-      mapItem: (f) => ({
-        heading: f.title,
-        body: `${f.desc} For teachers: ${f.action}`,
-      }),
-    })
-  })
-
-  // ── 5. Guide (2 slides) ──
-  ;[tutorialSteps.slice(0, 3), tutorialSteps.slice(3)].forEach((chunk, idx) => {
-    const slide = pptx.addSlide()
-    slide.background = { color: BG }
-    brandBar(slide)
-    slideHeader(
-      slide,
-      'How to Use STARBOOKS',
-      idx === 0 ? '5 Easy Steps to Get Started (1/2)' : '5 Easy Steps to Get Started (2/2)',
-      'Follow this guide to begin using STARBOOKS in your classroom',
-    )
-    if (idx === 0) {
-      slide.addText('Try this: Search "Climate Change" → Open a resource → Use it in your Science class', {
-        x: 0.6,
-        y: 2.1,
-        w: 12.1,
-        h: 0.45,
-        fontSize: 11,
-        bold: true,
-        color: BLACK,
-        fill: { color: 'FFF8E1' },
-      })
-    }
-    chunk.forEach((step, i) => {
-      const y = 2.65 + i * 1.55
-      slide.addText(String((idx === 0 ? 0 : 3) + i + 1), {
-        x: 0.6,
-        y,
-        w: 0.45,
-        h: 0.45,
-        fontSize: 14,
-        bold: true,
-        color: WHITE,
-        fill: { color: BLUE },
-        align: 'center',
-        shape: pptx.ShapeType.ellipse,
-      })
-      slide.addText(step.title, {
-        x: 1.2,
-        y,
-        w: 11,
-        h: 0.35,
-        fontSize: 14,
-        bold: true,
-        color: BLACK,
-      })
-      slide.addText(step.desc, {
-        x: 1.2,
-        y: y + 0.35,
-        w: 11,
-        h: 0.35,
-        fontSize: 11,
-        color: GRAY,
-      })
-      slide.addText(
-        step.points.map((p) => ({ text: p, options: { bullet: true, breakLine: true } })),
-        { x: 1.2, y: y + 0.65, w: 11, h: 0.75, fontSize: 10, color: BLACK },
-      )
-    })
-  })
-
-  // ── 6. Use Cases ──
-  const casesSlide = pptx.addSlide()
-  casesSlide.background = { color: BG }
-  brandBar(casesSlide)
+  // 8. Search Guide
+  const search = pptx.addSlide()
+  search.background = { color: BG }
+  brandBar(search)
   slideHeader(
-    casesSlide,
-    'Teacher Use Cases',
-    'When to Use STARBOOKS',
-    'Use STARBOOKS at every stage of your lesson — before, during, and after class',
+    search,
+    'How to Search for a Lesson',
+    `Search Example: "${searchExample}"`,
+    'Step-by-step guide to finding and using a lesson in STARBOOKS',
   )
-  useCases.forEach((uc, i) => {
+  searchSteps.forEach((step, i) => {
+    const y = 2.15 + i * 0.72
+    search.addText(String(i + 1), {
+      x: 0.6,
+      y,
+      w: 0.4,
+      h: 0.4,
+      fontSize: 12,
+      bold: true,
+      color: WHITE,
+      fill: { color: BLUE },
+      align: 'center',
+      shape: pptx.ShapeType.ellipse,
+    })
+    search.addText(step.title, {
+      x: 1.15,
+      y,
+      w: 4,
+      h: 0.55,
+      fontSize: 12,
+      bold: true,
+      color: BLACK,
+    })
+    search.addText(step.desc, {
+      x: 5.2,
+      y,
+      w: 7.5,
+      h: 0.55,
+      fontSize: 11,
+      color: GRAY,
+    })
+  })
+
+  // 9. Class Use
+  const classUse = pptx.addSlide()
+  classUse.background = { color: BG }
+  brandBar(classUse)
+  slideHeader(
+    classUse,
+    'How Teachers Can Use STARBOOKS in Class',
+    'Before · During · After Class',
+    'Integrate STARBOOKS at every stage of your lesson planning and delivery',
+  )
+  classUsePhases.forEach((uc, i) => {
     const x = 0.6 + i * 4.1
-    casesSlide.addShape('roundRect', {
+    classUse.addShape('roundRect', {
       x,
       y: 2.2,
       w: 3.85,
@@ -426,7 +479,7 @@ export async function exportStarbooksPptx() {
       line: { color: 'CCE9F5', width: 1 },
       rectRadius: 0.08,
     })
-    casesSlide.addText(`${uc.emoji} ${uc.phase}`, {
+    classUse.addText(`${uc.emoji} ${uc.phase}`, {
       x: x + 0.15,
       y: 2.35,
       w: 3.55,
@@ -435,159 +488,111 @@ export async function exportStarbooksPptx() {
       bold: true,
       color: BLUE_DARK,
     })
-    casesSlide.addText(uc.summary, {
-      x: x + 0.15,
-      y: 2.85,
-      w: 3.55,
-      h: 0.4,
-      fontSize: 10,
-      italic: true,
-      color: GRAY,
-    })
-    casesSlide.addText(
-      uc.items.flatMap((item) => [
-        { text: item.title, options: { bold: true, breakLine: true } },
-        { text: item.desc, options: { breakLine: true } },
-      ]),
-      { x: x + 0.15, y: 3.35, w: 3.55, h: 3.1, fontSize: 9, color: BLACK, valign: 'top' },
+    classUse.addText(
+      uc.items.map((item) => ({ text: `${item.emoji} ${item.text}`, options: { bullet: true, breakLine: true } })),
+      { x: x + 0.15, y: 2.95, w: 3.55, h: 3.5, fontSize: 10, color: BLACK, valign: 'top' },
     )
   })
 
-  // ── 7. Demo ──
-  const demo = pptx.addSlide()
-  demo.background = { color: BG }
-  brandBar(demo)
+  // 10. Lesson Flow
+  const flow = pptx.addSlide()
+  flow.background = { color: BG }
+  brandBar(flow)
   slideHeader(
-    demo,
-    'Example Classroom Activity',
-    'Lesson: Renewable Energy',
-    'A sample flow showing how STARBOOKS works as a teaching tool in one class period',
+    flow,
+    'Example: From Lesson → Activity',
+    'A Complete Learning Experience',
+    'STARBOOKS is not just for browsing — it supports a full lesson flow',
   )
-  activitySteps.forEach((step, i) => {
-    const y = 2.2 + i * 0.72
-    demo.addText(String(i + 1), {
-      x: 0.6,
-      y,
-      w: 0.4,
-      h: 0.4,
-      fontSize: 12,
-      bold: true,
-      color: BLACK,
-      fill: { color: YELLOW },
-      align: 'center',
-      shape: pptx.ShapeType.roundRect,
-    })
-    demo.addText(step.title, {
-      x: 1.15,
-      y,
-      w: 3,
-      h: 0.55,
-      fontSize: 12,
-      bold: true,
-      color: BLACK,
-    })
-    demo.addText(step.desc, {
-      x: 4.2,
-      y,
-      w: 8.5,
-      h: 0.55,
-      fontSize: 11,
-      color: GRAY,
-    })
-  })
-  demo.addText('Guide questions for students:', {
-    x: 0.6,
-    y: 5.85,
-    w: 12,
-    h: 0.35,
-    fontSize: 12,
+  flow.addText('One topic → read → watch → interact → assess → explore', {
+    x: 2.2,
+    y: 2.05,
+    w: 8.9,
+    h: 0.4,
+    fontSize: 11,
     bold: true,
-    color: BLACK,
-  })
-  demo.addText(
-    guideQuestions.map((q) => ({ text: q, options: { bullet: true, breakLine: true } })),
-    { x: 0.75, y: 6.2, w: 11.5, h: 1, fontSize: 11, color: GRAY },
-  )
-
-  // ── 8. Reminders ──
-  const note = pptx.addSlide()
-  note.background = { color: BG }
-  brandBar(note)
-  slideHeader(
-    note,
-    'Important Reminder',
-    'STARBOOKS complements — not replaces — the teacher',
-    'Think of STARBOOKS as your extra assistant in the classroom',
-  )
-  note.addShape('roundRect', {
-    x: 0.6,
-    y: 2.1,
-    w: 12.1,
-    h: 0.65,
+    color: BLUE_DARK,
     fill: { color: 'FFF8E1' },
-    line: { color: YELLOW, width: 1 },
-    rectRadius: 0.06,
+    align: 'center',
+    shape: pptx.ShapeType.roundRect,
   })
-  note.addText(
-    'STARBOOKS provides the resources — you provide the teaching, guidance, and connection with your students.',
-    { x: 0.85, y: 2.22, w: 11.6, h: 0.45, fontSize: 11, bold: true, color: BLACK },
-  )
-  reminderPoints.forEach((point, i) => {
-    const col = i % 3
-    const row = Math.floor(i / 3)
-    const x = 0.6 + col * 4.1
-    const y = 2.95 + row * 1.75
-    note.addShape('roundRect', {
+  lessonFlow.forEach((step, i) => {
+    const x = 0.55 + i * 2.48
+    flow.addShape('roundRect', {
       x,
-      y,
-      w: 3.85,
-      h: 1.55,
+      y: 2.65,
+      w: 2.2,
+      h: 3.35,
       fill: { color: WHITE },
-      line: { color: 'CCE9F5', width: 1 },
+      line: { color: BLUE, width: 1 },
       rectRadius: 0.08,
     })
-    note.addText(String(i + 1).padStart(2, '0'), {
-      x: x + 3.2,
-      y: y + 0.08,
-      w: 0.55,
+    flow.addText(String(i + 1), {
+      x: x + 1.75,
+      y: 2.75,
+      w: 0.35,
       h: 0.35,
-      fontSize: 14,
+      fontSize: 10,
       bold: true,
-      color: 'CCE9F5',
-      align: 'right',
+      color: WHITE,
+      fill: { color: BLUE },
+      align: 'center',
+      shape: pptx.ShapeType.ellipse,
     })
-    note.addText(point.title, {
-      x: x + 0.15,
-      y: y + 0.35,
-      w: 3.55,
+    flow.addText(step.emoji, {
+      x,
+      y: 3.15,
+      w: 2.2,
+      h: 0.55,
+      fontSize: 22,
+      align: 'center',
+    })
+    flow.addText(step.label, {
+      x: x + 0.1,
+      y: 3.75,
+      w: 2,
       h: 0.4,
-      fontSize: 12,
+      fontSize: 11,
       bold: true,
       color: BLUE_DARK,
+      align: 'center',
     })
-    note.addText(point.desc, {
-      x: x + 0.15,
-      y: y + 0.75,
-      w: 3.55,
-      h: 0.7,
+    flow.addText(step.desc, {
+      x: x + 0.1,
+      y: 4.2,
+      w: 2,
+      h: 1.6,
       fontSize: 9,
       color: GRAY,
+      align: 'center',
       valign: 'top',
     })
+    if (i < lessonFlow.length - 1) {
+      flow.addText('→', {
+        x: x + 2.15,
+        y: 4.05,
+        w: 0.35,
+        h: 0.45,
+        fontSize: 18,
+        bold: true,
+        color: YELLOW,
+        align: 'center',
+      })
+    }
   })
 
-  // ── 9. Workshop ──
+  // 11. Workshop
   const workshop = pptx.addSlide()
   workshop.background = { color: BG }
   brandBar(workshop)
   slideHeader(
     workshop,
     'Hands-On Activity',
-    'Explore STARBOOKS Now',
-    'Try it yourself — follow these steps and share one idea with the group',
+    'Explore STARBOOKS',
+    'Give each teacher 5–10 minutes to try these steps',
   )
   workshopTasks.forEach((item, i) => {
-    const y = 2.2 + i * 1.05
+    const y = 2.15 + i * 0.85
     workshop.addText(String(i + 1), {
       x: 0.6,
       y,
@@ -605,7 +610,7 @@ export async function exportStarbooksPptx() {
       y,
       w: 11,
       h: 0.35,
-      fontSize: 14,
+      fontSize: 13,
       bold: true,
       color: BLACK,
     })
@@ -613,69 +618,78 @@ export async function exportStarbooksPptx() {
       x: 1.2,
       y: y + 0.38,
       w: 11,
-      h: 0.45,
+      h: 0.4,
       fontSize: 11,
       color: GRAY,
     })
   })
-  workshop.addText('Visit www.starbooks.ph to explore online.', {
+  workshop.addText(`Then ask: ${workshopQuestion}`, {
     x: 0.6,
-    y: 6.5,
+    y: 6.4,
     w: 12,
-    h: 0.35,
+    h: 0.45,
     fontSize: 12,
     bold: true,
     color: BLUE_DARK,
+    fill: { color: 'FFF8E1' },
   })
 
-  // ── 10. Manual (2 slides) ──
-  ;[manualSections.slice(0, 4), manualSections.slice(4)].forEach((chunk, idx) => {
-    const slide = pptx.addSlide()
-    slide.background = { color: BG }
-    brandBar(slide)
-    slideHeader(
-      slide,
-      'Quick Reference',
-      idx === 0 ? 'STARBOOKS Teacher Manual (1/2)' : 'STARBOOKS Teacher Manual (2/2)',
-      'Everything you need to start using STARBOOKS in your classroom',
-    )
-    chunk.forEach((section, i) => {
-      const col = i % 2
-      const row = Math.floor(i / 2)
-      const x = 0.6 + col * 6.25
-      const y = 2.15 + row * 2.15
-      slide.addShape('roundRect', {
-        x,
-        y,
-        w: 5.9,
-        h: 1.95,
-        fill: { color: WHITE },
-        line: { color: 'CCE9F5', width: 1 },
-        rectRadius: 0.06,
-      })
-      slide.addText(section.title, {
-        x: x + 0.15,
-        y: y + 0.12,
-        w: 5.6,
-        h: 0.35,
-        fontSize: 11,
-        bold: true,
-        color: BLUE_DARK,
-      })
-      slide.addText(
-        section.items.map((item) => ({ text: item, options: { bullet: true, breakLine: true } })),
-        { x: x + 0.15, y: y + 0.48, w: 5.6, h: 1.35, fontSize: 9, color: GRAY, valign: 'top' },
-      )
+  // 12. Recap
+  const recap = pptx.addSlide()
+  recap.background = { color: BG }
+  brandBar(recap)
+  slideHeader(
+    recap,
+    'Quick Recap',
+    'Remember These 5 Things',
+    "Key takeaways from today's STARBOOKS teacher orientation",
+  )
+  recapPoints.forEach((item, i) => {
+    const x = 0.6 + i * 2.45
+    recap.addShape('roundRect', {
+      x,
+      y: 2.3,
+      w: 2.25,
+      h: 3.5,
+      fill: { color: WHITE },
+      line: { color: BLUE, width: 1 },
+      rectRadius: 0.08,
+    })
+    recap.addText(item.emoji, {
+      x,
+      y: 2.5,
+      w: 2.25,
+      h: 0.5,
+      fontSize: 22,
+      align: 'center',
+    })
+    recap.addText(item.word, {
+      x,
+      y: 3.15,
+      w: 2.25,
+      h: 0.4,
+      fontSize: 13,
+      bold: true,
+      color: BLUE_DARK,
+      align: 'center',
+    })
+    recap.addText(item.desc, {
+      x: x + 0.1,
+      y: 3.6,
+      w: 2.05,
+      h: 2,
+      fontSize: 9,
+      color: GRAY,
+      align: 'center',
+      valign: 'top',
     })
   })
 
-  // ── 11. Closing ──
+  // 18. Thank You
   const end = pptx.addSlide()
   end.background = { color: BLUE }
   brandBar(end)
-  if (logo) {
-    end.addImage({ data: logo, x: 5.5, y: 1.5, w: 2, h: 0.95 })
-  }
+  if (logo) end.addImage({ data: logo, x: 5.5, y: 1.5, w: 2, h: 0.95 })
   end.addText('Thank You!', {
     x: 0.6,
     y: 2.65,
@@ -695,46 +709,10 @@ export async function exportStarbooksPptx() {
     color: WHITE,
     align: 'center',
   })
-  closingPoints.forEach((item, i) => {
-    const x = 0.85 + i * 3.05
-    end.addShape('roundRect', {
-      x,
-      y: 4.35,
-      w: 2.85,
-      h: 1.1,
-      fill: { color: '0090C8', transparency: 30 },
-      line: { color: WHITE, width: 1 },
-      rectRadius: 0.08,
-    })
-    end.addText(item.word, {
-      x,
-      y: 4.5,
-      w: 2.85,
-      h: 0.4,
-      fontSize: 14,
-      bold: true,
-      color: WHITE,
-      align: 'center',
-    })
-    end.addText(item.desc, {
-      x: x + 0.1,
-      y: 4.9,
-      w: 2.65,
-      h: 0.45,
-      fontSize: 9,
-      color: WHITE,
-      align: 'center',
-    })
-  })
-  end.addText('Department of Science and Technology · DOST-STII', {
-    x: 0.6,
-    y: 5.85,
-    w: 12,
-    h: 0.35,
-    fontSize: 12,
-    color: WHITE,
-    align: 'center',
-  })
+  end.addText(
+    'Department of Science and Technology – Science and Technology Information Institute',
+    { x: 0.6, y: 5.85, w: 12, h: 0.35, fontSize: 12, color: WHITE, align: 'center' },
+  )
   end.addText('stii.dost.gov.ph/starbooks  ·  www.starbooks.ph', {
     x: 0.6,
     y: 6.25,

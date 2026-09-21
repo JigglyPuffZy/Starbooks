@@ -26,6 +26,14 @@
   --font-body: 'Figtree', system-ui, sans-serif;
 }
 
+html {
+  font-size: 20px;
+}
+
+html:has(.deck--present) {
+  font-size: 22px;
+}
+
 html,
 body {
   height: 100%;
@@ -34,7 +42,7 @@ body {
 
 body {
   font-family: var(--font-body);
-  font-size: 17px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--dost-black);
   background: var(--bg);
