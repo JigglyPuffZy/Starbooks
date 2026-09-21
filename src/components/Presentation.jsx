@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Download, Maximize2, Minimize2 } from 'lucide-react'
 import { SLIDE_LIST } from './Slides'
 
@@ -76,7 +75,15 @@ export default function Presentation() {
     <div className={`deck ${presenting ? 'deck--present' : ''}`}>
       <header className="deck-header">
         <div className="brand">
-          <img src="/starbooks-logo.png" alt="" className="brand-logo" />
+          <img
+            src="/starbooks-logo.png"
+            alt="STARBOOKS"
+            className="brand-logo"
+            width={200}
+            height={39}
+            decoding="async"
+            fetchPriority="high"
+          />
           <div className="brand-text">
             <span className="brand-name">STARBOOKS</span>
             <span className="brand-sub">Teacher Orientation</span>
@@ -109,18 +116,9 @@ export default function Presentation() {
       </header>
 
       <main className="slide-stage">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={current}
-            className="slide-panel"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <Component active />
-          </motion.div>
-        </AnimatePresence>
+        <div key={current} className="slide-panel slide-panel--enter">
+          <Component active />
+        </div>
       </main>
 
       <footer className="deck-nav">

@@ -26,9 +26,12 @@
 }
 
 .brand-logo {
-  height: 36px;
-  width: auto;
+  display: block;
+  width: min(200px, 42vw);
+  height: auto;
+  max-height: 40px;
   object-fit: contain;
+  flex-shrink: 0;
 }
 
 .brand-text {
@@ -113,6 +116,40 @@
 .slide-panel {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.slide-panel--enter {
+  animation: slide-enter 0.35s ease-out both;
+}
+
+@keyframes slide-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.reveal--active {
+  animation: reveal-in 0.45s ease-out both;
+}
+
+@keyframes reveal-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── Slide frame (full bleed) ── */
@@ -120,7 +157,9 @@
   position: relative;
   width: 100%;
   height: 100%;
+  min-height: 0;
   display: flex;
+  flex-direction: column;
   background: var(--white);
   overflow: hidden;
 }
@@ -155,13 +194,18 @@
 
 /* ── Content panel ── */
 .slide-content {
+  position: relative;
+  z-index: 1;
   flex: 1;
   min-width: 0;
+  min-height: 0;
+  height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: clamp(1.25rem, 2.5vw, 2.25rem) clamp(1.5rem, 3vw, 2.75rem);
   display: flex;
   flex-direction: column;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
 }
@@ -230,15 +274,18 @@
 }
 
 .intro-logo {
-  height: clamp(72px, 12vw, 110px);
-  width: auto;
+  display: block;
+  width: min(480px, 92vw);
+  height: auto;
+  max-height: 100px;
+  margin: 0 auto 1rem;
   object-fit: contain;
-  margin-bottom: 1rem;
-  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0 4px 16px rgba(0, 174, 239, 0.15));
 }
 
 .intro-logo-sm {
-  height: clamp(56px, 8vw, 80px);
+  width: min(360px, 80vw);
+  max-height: 80px;
 }
 
 .intro-org {

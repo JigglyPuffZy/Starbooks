@@ -43,7 +43,15 @@ export function SlideIntro({ active }) {
     <SlideLayout variant="intro">
       <div className="intro-center">
         <Reveal active={active}>
-          <img src={LOGO} alt="STARBOOKS Logo" className="intro-logo" />
+          <img
+            src={LOGO}
+            alt="STARBOOKS Logo"
+            className="intro-logo"
+            width={480}
+            height={93}
+            decoding="async"
+            fetchPriority="high"
+          />
         </Reveal>
         <Reveal active={active} delay={0.05}>
           <p className="intro-org">Department of Science and Technology (DOST)</p>
@@ -430,7 +438,14 @@ export function SlideEnd({ active }) {
     <SlideLayout variant="closing">
       <div className="closing-center">
         <Reveal active={active}>
-          <img src={LOGO} alt="STARBOOKS Logo" className="intro-logo intro-logo-sm" />
+          <img
+            src={LOGO}
+            alt="STARBOOKS Logo"
+            className="intro-logo intro-logo-sm"
+            width={360}
+            height={70}
+            decoding="async"
+          />
           <h2 className="closing-title">Thank You!</h2>
           <p className="closing-tagline">
             STARBOOKS — Bringing Science &amp; Technology Resources Closer to Learners
