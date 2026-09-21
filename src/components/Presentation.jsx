@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Download, Maximize2, Minimize2 } from 'lucide-react'
 import { SLIDE_LIST } from './Slides'
-import { exportStarbooksPptx } from '../utils/exportPptx'
 
 export default function Presentation() {
   const [current, setCurrent] = useState(0)
@@ -61,6 +60,7 @@ export default function Presentation() {
     if (exporting) return
     setExporting(true)
     try {
+      const { exportStarbooksPptx } = await import('../utils/exportPptx')
       await exportStarbooksPptx()
     } catch (err) {
       console.error(err)

@@ -1,4 +1,3 @@
-import pptxgen from 'pptxgenjs'
 import {
   aboutContentTypes,
   aboutHighlights,
@@ -143,6 +142,7 @@ function twoColumnCards(pptx, { tag, title, subtitle, items, mapItem }) {
 }
 
 export async function exportStarbooksPptx() {
+  const { default: pptxgen } = await import('pptxgenjs')
   const pptx = new pptxgen()
   pptx.layout = 'LAYOUT_WIDE'
   pptx.author = 'DOST-STII'
